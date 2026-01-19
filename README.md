@@ -68,6 +68,37 @@ Windows target:
 
 Note: RPM packaging needs `rpmbuild` on the build machine if you add it.
 
+## Build & Release (Quick Guide)
+Linux (local):
+```bash
+npm install --legacy-peer-deps
+NODE_OPTIONS=--max-old-space-size=6144 npm run build
+npm run electron:build
+```
+
+Windows (recommended via CI):
+- Use the GitHub Action in `.github/workflows/build-windows.yml`.
+- Trigger by pushing a `v*` tag or running the workflow manually.
+- Download the `.exe` from Actions artifacts.
+
+If the build gets killed, increase Node memory or add swap:
+```bash
+NODE_OPTIONS=--max-old-space-size=6144 npm run build
+```
+
+## One-Click Install (Windows)
+Paste this into PowerShell (downloads the latest release installer):
+```powershell
+iwr -useb https://raw.githubusercontent.com/esterzollar/StoneNote/main/install.ps1 | iex
+```
+
+## Release Upload (No Git)
+Use `upload.sh` with a GitHub token set in your environment:
+```bash
+export GITHUB_TOKEN="YOUR_TOKEN_HERE"
+./upload.sh
+```
+
 ## Targets
 - Teachers building lesson notes into slides.
 - Students organizing research into timelines and maps.
